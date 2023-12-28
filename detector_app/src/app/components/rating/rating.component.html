@@ -1,0 +1,12 @@
+<div class="flex w-40 h-20 justify-between items-center">
+  @for(start of starRating; track $index) {
+  <mat-icon
+    [ngClass]="{ marked: starSelected > $index }"
+    fontIcon="star"
+    (mouseenter)="handleMouseEnter($index)"
+    (mouseleave)="handleMouseLeave($index)"
+    (click)="makeRating($index)"
+    >star</mat-icon
+  >
+  }
+</div>

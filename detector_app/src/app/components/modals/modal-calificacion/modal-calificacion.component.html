@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Calificar Diagnostico</h1>
+<div mat-dialog-content>
+  <p>
+    Queremos saber que te parecio la predicion de la enfermedad de nuestro
+    modelo de inteligencia artificial
+  </p>
+  <form [formGroup]="calificationForm" (submit)="(submitCalification)">
+    <app-rating (onRating)="handleRating($event)"></app-rating>
+    <mat-form-field>
+      <mat-label>Descripcion</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onClose()">Cerrar</button>
+  <button mat-raised-button color="primary" type="submit" cdkFocusInitial>
+    Enviar
+  </button>
+</div>

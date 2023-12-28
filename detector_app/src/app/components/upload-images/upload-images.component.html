@@ -1,0 +1,24 @@
+<div class="flex w-75">
+  <section class="w-1/2">
+    <h6 class="font-semibold text-2xl">Subir Images</h6>
+    <span class="text-sm">Sube tus imagenes y dale click en procesar.</span>
+    <div class="flex">
+      <input type="file" (change)="onSelectFiles($event)" multiple />
+    </div>
+    <div class="flex justify-around items-center">
+      <button class="btn btn-primary" (click)="onSubmitImages()">
+        Procesar Imagenes
+      </button>
+      <button class="btn btn-success" (click)="openDialog()">
+        Calificar Resultados
+      </button>
+    </div>
+  </section>
+  <section class="w-1/2">
+    <img src="" alt="" />
+    @for(image of images; track image) {
+    <img [src]="image" alt="Foto 1" /> } @empty {
+    <p class="text-sm text-red-300">No has subido nada.</p>
+    }
+  </section>
+</div>

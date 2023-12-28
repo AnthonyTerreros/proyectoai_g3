@@ -1,0 +1,27 @@
+<div class="min-h-screen min-w-screen flex justify-center items-center">
+  <div class="w-96 h-auto">
+    <form
+      [formGroup]="loginForm"
+      (submit)="onSubmit()"
+      class="flex flex-col gap-3 justify-start items-center border-2 rounded p-3 h-full min-h-80"
+    >
+      <h5 class="text-4xl font-semibold">Iniciar Session</h5>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" />
+      </div>
+      <div class="form-group">
+        <button
+          class="py-2 px-2 bg-green-500 border rounded-lg text-white font-bold"
+          type="submit"
+        >
+          Log In
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
