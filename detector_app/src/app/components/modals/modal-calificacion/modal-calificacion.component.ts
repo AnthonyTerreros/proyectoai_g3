@@ -8,7 +8,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef,
   MatDialogTitle,
@@ -38,7 +37,7 @@ import { RatingComponent } from '../../rating/rating.component';
 })
 export class ModalCalificacionComponent {
   calificationForm: FormGroup;
-
+  rating: number = 0;
   constructor(
     private apiService: ApiService,
     private fb: FormBuilder,
@@ -54,14 +53,17 @@ export class ModalCalificacionComponent {
     this.dialogRef.close();
   }
 
-  handleRating(event: any) {}
+  handleRating(event: number) {
+    this.rating = event;
+  }
+
   submitCalification() {
     if (this.calificationForm.valid) {
       let data = {
         user: {} as User,
         descripcion: '',
         images_url: [],
-        calificacion: 0,
+        calificacion: this.rating,
       } as Evaluacion;
       this.apiService.uploadCalification(data).subscribe(
         (res: any) => {
