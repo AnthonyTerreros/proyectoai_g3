@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { Evaluacion } from '../../interfaces';
 
 @Component({
   selector: 'app-historylist',

@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   id?: string;
   names: string;
   lastnames: string;
@@ -6,7 +6,7 @@ interface User {
   dni: string;
 }
 
-interface Evaluacion {
+export interface Evaluacion {
   id?: string;
   user: User;
   descripcion: string;
@@ -14,7 +14,7 @@ interface Evaluacion {
   images_url: string[];
 }
 
-interface DialogData {
+export interface DialogData {
   user: User;
   images_url: string[];
 }

@@ -18,6 +18,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RatingComponent } from '../../rating/rating.component';
+import { DialogData, Evaluacion, User } from '../../../interfaces';
 
 @Component({
   selector: 'app-modal-calificacion',

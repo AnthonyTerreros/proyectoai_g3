@@ -27,6 +27,7 @@ export class UploadImagesComponent {
           this.images.push(e.target.results);
         };
       }
+      console.log(this.images);
     }
   }
 

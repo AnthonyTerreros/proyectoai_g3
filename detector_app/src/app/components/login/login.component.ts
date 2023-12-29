@@ -4,6 +4,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -24,8 +25,8 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: new FormControl(),
-      password: new FormControl(),
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     });
   }
 
