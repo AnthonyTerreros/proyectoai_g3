@@ -15,6 +15,8 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RatingComponent } from '../../rating/rating.component';
@@ -32,6 +34,7 @@ import { DialogData, Evaluacion, User } from '../../../interfaces';
     MatDialogClose,
     MatFormFieldModule,
     RatingComponent,
+    MatInputModule,
   ],
   templateUrl: './modal-calificacion.component.html',
   styleUrl: './modal-calificacion.component.css',
@@ -62,22 +65,23 @@ export class ModalCalificacionComponent {
     if (this.calificationForm.valid) {
       let data = {
         user: {} as User,
-        descripcion: '',
+        descripcion: this.calificationForm.controls['description'].value,
         images_url: [],
         calificacion: this.rating,
       } as Evaluacion;
-      this.apiService.uploadCalification(data).subscribe(
-        (res: any) => {
-          if (res.status === 200) {
-            alert('OK');
-          } else {
-            alert('Estamos teniendo problemas');
-          }
-        },
-        (err: any) => {
-          alert('Ocurrio un error');
-        }
-      );
+      console.log(data);
+      // this.apiService.uploadCalification(data).subscribe(
+      //   (res: any) => {
+      //     if (res.status === 200) {
+      //       alert('OK');
+      //     } else {
+      //       alert('Estamos teniendo problemas');
+      //     }
+      //   },
+      //   (err: any) => {
+      //     alert('Ocurrio un error');
+      //   }
+      // );
     }
   }
 }

@@ -1,4 +1,5 @@
-<div class="flex w-40 h-20 justify-between items-center">
+<p class="text-sm font-semibold">Calificacion: </p>
+<div class="flex w-40 h-16 justify-between items-center">
   @for(start of starRating; track $index) {
   <mat-icon
     [ngClass]="{ marked: starSelected > $index }"

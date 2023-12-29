@@ -36,7 +36,11 @@ export class UploadImagesComponent {
       data: { user: {}, images_url: [] },
     });
     dialogRef.afterClosed().subscribe((res: any) => {
-      console.log('The dialog was closed');
+      if (res === 'success') {
+        alert('Gracias por colaborar.');
+      } else {
+        alert('Ocurrio un error. Intenta mas tarde.');
+      }
     });
   }
 

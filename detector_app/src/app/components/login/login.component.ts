@@ -32,6 +32,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.getRawValue());
       this.router.navigate(['/home']);
       this.loginForm.reset();
     } else {
