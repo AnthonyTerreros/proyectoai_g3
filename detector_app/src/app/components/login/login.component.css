@@ -9,3 +9,7 @@ input {
 label {
     @apply block mb-2 text-lg font-medium text-gray-900;
 }
+
+.bg-image-wallpaper {
+    background-image: url("/assets/bg_image.jpg");
+}

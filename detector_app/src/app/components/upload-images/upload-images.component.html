@@ -1,11 +1,16 @@
-<div
-  class="flex max-w-screen-xl mx-auto justify-start p-10 h-full border"
->
-  <section class="w-1/2 flex flex-col gap-5 justify-start">
+<div class="mt-6 flex max-w-screen-xl mx-auto justify-start p-5 h-full border">
+  <section
+    class="w-1/3 flex flex-col gap-5 justify-start border-2 rounded-md p-4"
+  >
     <h6 class="font-semibold text-2xl">Subir Images</h6>
     <span class="text-sm">Sube tus imagenes y dale click en procesar.</span>
     <div class="flex">
-      <input type="file" (change)="onSelectFiles($event)" multiple />
+      <input
+        type="file"
+        accept="image/png, image/gif, image/jpeg"
+        (change)="onSelectFiles($event)"
+        multiple
+      />
     </div>
     <div class="flex justify-around items-center">
       <button class="btn btn-primary text-sm" (click)="onSubmitImages()">
@@ -16,11 +21,15 @@
       </button>
     </div>
   </section>
-  <section class="w-1/2 grid grid-cols-3 items-center h-auto">
-    <img src="" alt="" />
+  <section class="w-2/3 grid grid-cols-3 gap-5 items-center h-auto relative">
     @for(image of images; track image) {
-    <img [src]="image" alt="Foto 1" class="size-60" /> } @empty {
-    <p class="text-sm font-semibold text-center text-red-500">
+    <div class="max-w-sm border-gray-200 rounded-lg shadow">
+      <img [src]="image" alt="Foto 1" class="rounded-t-lg size-80" />
+    </div>
+    } @empty {
+    <p
+      class="text-sm font-semibold text-center text-red-600 absolute top-0 bottom-0 left-0 right-0 mx-auto"
+    >
       No has subido nada.
     </p>
     }
