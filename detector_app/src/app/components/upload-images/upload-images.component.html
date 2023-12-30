@@ -1,25 +1,25 @@
 <div
-  class="flex max-w-screen-xl mx-auto justify-center items-center p-10 h-full border"
+  class="flex max-w-screen-xl mx-auto justify-start p-10 h-full border"
 >
-  <section class="w-1/2 flex flex-col gap-5">
+  <section class="w-1/2 flex flex-col gap-5 justify-start">
     <h6 class="font-semibold text-2xl">Subir Images</h6>
     <span class="text-sm">Sube tus imagenes y dale click en procesar.</span>
     <div class="flex">
       <input type="file" (change)="onSelectFiles($event)" multiple />
     </div>
     <div class="flex justify-around items-center">
-      <button class="btn btn-primary" (click)="onSubmitImages()">
+      <button class="btn btn-primary text-sm" (click)="onSubmitImages()">
         Procesar Imagenes
       </button>
-      <button class="btn btn-success" (click)="openDialog()">
+      <button class="btn btn-success text-sm" (click)="openDialog()">
         Calificar Resultados
       </button>
     </div>
   </section>
-  <section class="w-1/2">
+  <section class="w-1/2 grid grid-cols-3 items-center h-auto">
     <img src="" alt="" />
     @for(image of images; track image) {
-    <img [src]="image" alt="Foto 1" /> } @empty {
+    <img [src]="image" alt="Foto 1" class="size-60" /> } @empty {
     <p class="text-sm font-semibold text-center text-red-500">
       No has subido nada.
     </p>

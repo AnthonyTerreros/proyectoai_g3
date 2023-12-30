@@ -20,11 +20,11 @@ export class UploadImagesComponent {
 
   onSelectFiles(event: any) {
     if (event.target.files) {
-      for (let k = 0; k < event.target.files; k++) {
+      for (let k = 0; k < event.target.files.length; k++) {
         let reader = new FileReader();
         reader.readAsDataURL(event.target.files[k]);
         reader.onload = (e: any) => {
-          this.images.push(e.target.results);
+          this.images.push(e.target.result);
         };
       }
       console.log(this.images);
