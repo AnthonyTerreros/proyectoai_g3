@@ -12,6 +12,7 @@ import { ModeloDlService } from '../../services/modelo-dl.service';
 })
 export class UploadImagesComponent {
   images: any[] = [];
+  predicionResultados: any[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -44,5 +45,14 @@ export class UploadImagesComponent {
     });
   }
 
-  onSubmitImages(): void {}
+  onSubmitImages(): void {
+    if (!this.images.length) {
+      alert('Sube al menos una image!!');
+      return;
+    }
+    for (let i = 0; i < this.images.length; i++) {
+      let output = this.modeloService.predict(this.images[i]);
+      this.predicionResultados.push(output);
+    }
+  }
 }
