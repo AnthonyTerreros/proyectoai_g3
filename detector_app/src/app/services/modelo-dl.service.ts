@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { loadGraphModel } from '@tensorflow/tfjs';
-import tf from '@tensorflow/tfjs';
+import * as tf from '@tensorflow/tfjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class ModeloDlService {
 
   private resizingImage(image: ImageData) {
     let img = tf.browser.fromPixels(image, 3);
-    img = img.reshape([3, 256, 256, 3]);
+    img = img.reshape([3, 256, 256]);
     img = tf.cast(img, 'float32');
     return img;
   }

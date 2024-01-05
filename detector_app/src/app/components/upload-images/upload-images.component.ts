@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalCalificacionComponent } from '../modals/modal-calificacion/modal-calificacion.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModeloDlService } from '../../services/modelo-dl.service';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-upload-images',
@@ -13,6 +14,7 @@ import { ModeloDlService } from '../../services/modelo-dl.service';
 export class UploadImagesComponent {
   images: any[] = [];
   predicionResultados: any[] = [];
+  isLoading: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -46,6 +48,7 @@ export class UploadImagesComponent {
   }
 
   onSubmitImages(): void {
+    this.isLoading = true;
     if (!this.images.length) {
       alert('Sube al menos una image!!');
       return;
@@ -54,5 +57,21 @@ export class UploadImagesComponent {
       let output = this.modeloService.predict(this.images[i]);
       this.predicionResultados.push(output);
     }
+    this.isLoading = false;
+  }
+
+  generatePDF(): void {
+    const doc = new jsPDF();
+    const resultadosContainer = document.querySelector('.resultados');
+    // const margins = {
+    //   top: 30,
+    //   bottom: 30,
+    //   left: 10,
+    //   right: 10,
+    // };
+    doc.setFont('Arial');
+    doc.setFontSize(12);
+    doc.text('Detector de Enfermdades de Cacao', 10, 10);
+    doc.save('resultados.pdf');
   }
 }
