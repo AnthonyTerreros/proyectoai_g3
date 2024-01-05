@@ -16,11 +16,11 @@
       />
     </div>
     <div
-      class="grid grid-cols-3 gap-5 items-center relative h-96 overflow-y-auto"
+      class="grid grid-cols-3 gap-5 items-start relative h-96 overflow-y-auto"
     >
       @for(image of images; track image) {
       <div class="max-w-sm border-gray-200 rounded-lg shadow">
-        <img [src]="image" alt="Foto 1" class="rounded-t-lg size-80" />
+        <img [src]="image" alt="Foto 1" class="rounded-t-lg size-40" />
       </div>
       } @empty {
       <p

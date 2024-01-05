@@ -28,6 +28,6 @@ export class ModeloDlService {
 
   private async loadModel() {
     const modelURL = '../../assets/modecnn_g3/model.json';
-    this.model = await loadGraphModel(modelURL);
+    this.model = await tf.loadLayersModel(modelURL);
   }
 }

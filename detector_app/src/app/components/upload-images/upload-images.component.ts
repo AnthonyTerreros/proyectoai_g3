@@ -3,6 +3,7 @@ import { ModalCalificacionComponent } from '../modals/modal-calificacion/modal-c
 import { MatDialog } from '@angular/material/dialog';
 import { ModeloDlService } from '../../services/modelo-dl.service';
 import jsPDF from 'jspdf';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-upload-images',
@@ -18,7 +19,8 @@ export class UploadImagesComponent {
 
   constructor(
     public dialog: MatDialog,
-    private modeloService: ModeloDlService
+    private modeloService: ModeloDlService,
+    private authService: AuthService
   ) {}
 
   onSelectFiles(event: any) {
@@ -36,7 +38,10 @@ export class UploadImagesComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalCalificacionComponent, {
-      data: { user: {}, images_url: [] },
+      data: {
+        user: this.authService.getCurrentUser(),
+        images_url: this.images,
+      },
     });
     dialogRef.afterClosed().subscribe((res: any) => {
       if (res === 'success') {
