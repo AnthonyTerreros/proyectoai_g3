@@ -12,16 +12,20 @@ export class ModeloDlService {
     this.loadModel();
   }
 
-  public predict(image: ImageData) {
+  public predict(image: HTMLImageElement) {
     let tensorImage = this.resizingImage(image);
     let resultado = this.model.predict(tensorImage).dataSync();
+    console.log(resultado);
     let valorPredicion = Array.from(resultado);
     return valorPredicion;
   }
 
-  private resizingImage(image: ImageData) {
-    let img = tf.browser.fromPixels(image, 3);
-    img = img.reshape([3, 256, 256]);
+  private resizingImage(image: HTMLImageElement) {
+    console.log(image);
+    let img = tf.browser.fromPixels(image);
+    console.log(img);
+    img = img.resizeBilinear([256, 256]);
+    img = img.reshape([1, 256, 256, 3]);
     img = tf.cast(img, 'float32');
     return img;
   }

@@ -33,6 +33,7 @@ export class UploadImagesComponent {
         };
       }
       console.log(this.images);
+      // console.log(this.images[0].nativeElement);
     }
   }
 
@@ -59,10 +60,17 @@ export class UploadImagesComponent {
       return;
     }
     for (let i = 0; i < this.images.length; i++) {
-      let output = this.modeloService.predict(this.images[i]);
+      let image = this.createImage(this.images[i]);
+      let output = this.modeloService.predict(image);
       this.predicionResultados.push(output);
     }
     this.isLoading = false;
+  }
+
+  createImage(image: any) {
+    let img = document.createElement('img');
+    img.src = image;
+    return img;
   }
 
   generatePDF(): void {
