@@ -48,18 +48,23 @@
     @if(predicionResultados.length) { @if(isLoading) {
     <div>Cargando...</div>
     } @else {
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3 w-full">
       @for (pred of predicionResultados; track $index) {
       <div
-        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
+        class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 max-w-full"
         id="resultados"
       >
         <h6 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
           Foto {{ $index + 1 }}
         </h6>
-        <p class="font-normal text-gray-700 dark:text-gray-400">
-          {{ pred }}
-        </p>
+        <div class="w-full h-40 flex gap-5">
+          <img
+            [src]="images[$index]"
+            alt="Foto Resultado {{ $index }}"
+            class="w-1/3 size-40"
+          />
+          <p class="w-2/3">{{ pred }}</p>
+        </div>
       </div>
       }
     </div>

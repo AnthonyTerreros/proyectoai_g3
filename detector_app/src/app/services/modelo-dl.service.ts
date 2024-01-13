@@ -15,7 +15,7 @@ export class ModeloDlService {
   public predict(image: HTMLImageElement) {
     let tensorImage = this.resizingImage(image);
     let resultado = this.model.predict(tensorImage).dataSync();
-    console.log(resultado);
+    resultado = tf.softmax(resultado).dataSync();
     let valorPredicion = Array.from(resultado);
     return valorPredicion;
   }
