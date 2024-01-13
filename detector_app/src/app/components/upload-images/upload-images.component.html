@@ -57,13 +57,31 @@
         <h6 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
           Foto {{ $index + 1 }}
         </h6>
+        <p class="text-xl font-semibold">Nombre {{ $index + 1 }}</p>
         <div class="w-full h-40 flex gap-5">
-          <img
-            [src]="images[$index]"
-            alt="Foto Resultado {{ $index }}"
-            class="w-1/3 size-40"
-          />
-          <p class="w-2/3">{{ pred }}</p>
+          <picture class="w-1/3">
+            <img
+              [src]="images[$index]"
+              alt="Foto Resultado {{ $index }}"
+              class="size-40"
+            />
+          </picture>
+          <div class="w-2/3">
+            <table class="table-auto">
+              <thead>
+                <tr>
+                  <th>Probabilidades</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(valuePred of pred; track $index) {
+                <tr>
+                  <td>{{ roundedValue(valuePred * 100) }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       }

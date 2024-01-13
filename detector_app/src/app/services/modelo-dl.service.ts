@@ -7,9 +7,12 @@ import * as tf from '@tensorflow/tfjs';
 })
 export class ModeloDlService {
   model!: any;
+  obj_classes: any;
 
   constructor() {
     this.loadModel();
+    // this.obj_classes = this.model.getConfig();
+    // console.log(this.obj_classes);
   }
 
   public predict(image: HTMLImageElement) {
@@ -33,5 +36,10 @@ export class ModeloDlService {
   private async loadModel() {
     const modelURL = '../../assets/modecnn_g3/model.json';
     this.model = await tf.loadLayersModel(modelURL);
+  }
+
+  public getClassById(predArr: number[]) {
+    let idx_max = tf.argMax(predArr, 1);
+    return this.obj_classes.get(idx_max);
   }
 }

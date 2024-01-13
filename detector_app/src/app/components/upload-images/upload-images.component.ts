@@ -87,4 +87,12 @@ export class UploadImagesComponent {
     doc.text('Detector de Enfermdades de Cacao', 10, 10);
     doc.save('resultados.pdf');
   }
+
+  // getNameClass(pred: number[]): string {
+  //   return this.modeloService.getClassById(pred);
+  // }
+
+  roundedValue(val: number) {
+    return Math.round(val);
+  }
 }
