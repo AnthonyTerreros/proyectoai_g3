@@ -19,14 +19,16 @@ export class ModeloDlService {
   public predict(image: HTMLImageElement) {
     let tensorImage = this.resizingImage(image);
     let resultado = this.model.predict(tensorImage).dataSync();
+    console.log(resultado);
     resultado = tf.softmax(resultado).dataSync();
+    console.log(resultado);
     let valorPredicion = Array.from(resultado);
     return valorPredicion;
   }
 
   private resizingImage(image: HTMLImageElement) {
     let img = tf.browser.fromPixels(image);
-    img = img.resizeBilinear([256, 256]);
+    img = img.resizeBilinear([256, 256]).div(tf.scalar(255));
     img = img.reshape([1, 256, 256, 3]);
     img = tf.cast(img, 'float32');
     return img;

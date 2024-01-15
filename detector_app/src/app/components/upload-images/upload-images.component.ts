@@ -1,19 +1,22 @@
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 import { Component } from '@angular/core';
 import { ModalCalificacionComponent } from '../modals/modal-calificacion/modal-calificacion.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModeloDlService } from '../../services/modelo-dl.service';
-import jsPDF from 'jspdf';
 import { AuthService } from '../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { HistorialService } from '../../services/historial.service';
 import { Historial } from '../../interfaces';
 import { classes_index } from '../../constants';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-upload-images',
   standalone: true,
-  imports: [MatIconModule, MatProgressSpinnerModule],
+  imports: [MatIconModule, MatProgressSpinnerModule, MatProgressBarModule],
   templateUrl: './upload-images.component.html',
   styleUrl: './upload-images.component.css',
 })
@@ -64,6 +67,7 @@ export class UploadImagesComponent {
     this.isLoading = true;
     if (!this.images.length) {
       alert('Sube al menos una image!!');
+      this.isLoading = false;
       return;
     }
     for (let i = 0; i < this.images.length; i++) {
@@ -85,18 +89,34 @@ export class UploadImagesComponent {
   }
 
   generatePDF(): void {
-    const doc = new jsPDF();
-    const resultadosContainer = document.querySelector('.resultados');
-    // const margins = {
-    //   top: 30,
-    //   bottom: 30,
-    //   left: 10,
-    //   right: 10,
-    // };
+    const resultadosContainer =
+      document.getElementById('resultados') || document.createElement('h1');
+    console.log(resultadosContainer);
+    const doc = new jsPDF('p', 'pt', 'a4');
     doc.setFont('Arial');
     doc.setFontSize(12);
     doc.text('Detector de Enfermdades de Cacao', 10, 10);
-    doc.save('resultados.pdf');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+
+    html2canvas(resultadosContainer, options)
+      .then((canvas) => {
+        const img = canvas.toDataURL('image/PNG');
+        let x = 100;
+        let y = 100;
+        let imgProps = (doc as any).getImageProperties(img);
+        console.log(imgProps);
+        const pdfWidth = doc.internal.pageSize.getHeight() - 2 * x;
+        const pdfHeight = (imgProps.height * pdfWidth) / pdfWidth;
+        console.log(pdfHeight, pdfWidth);
+        doc.addImage(img, 'PNG', x, y, pdfWidth, pdfHeight, undefined, 'FAST');
+        return doc;
+      })
+      .then((docResult) => {
+        docResult.save(`${new Date().toISOString()}_resultados.pdf`);
+      });
   }
 
   getNameClass(pred: number[]): string {

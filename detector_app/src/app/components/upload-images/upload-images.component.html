@@ -2,7 +2,7 @@
   class="mt-6 flex flex-col max-w-screen-xl mx-auto justify-start p-5 h-full border gap-5 xl:flex-row"
 >
   <section
-    class="w-full xl:w-1/3 flex flex-col gap-5 justify-start border-2 rounded-md p-4 max-h-100"
+    class="w-full xl:w-1/3 flex flex-col gap-5 justify-start border-2 rounded-md p-4 max-h-min"
   >
     <h4 class="font-semibold text-4xl">Subir Images</h4>
     <span class="text-sm">Sube tus imagenes y dale click en procesar.</span>
@@ -59,11 +59,13 @@
       </button>
     </div>
   </section>
-  <section class="w-full xl:w-2/3 flex flex-col gap-5 border-2 rounded-md p-4">
+  <section
+    class="w-full xl:w-2/3 flex flex-col gap-5 border-2 rounded-md p-4"
+    id="resultados"
+  >
     <h4 class="font-semibold text-4xl">Resultados</h4>
     @if(predicionResultados.length) { @if(isLoading) {
     <mat-spinner></mat-spinner>
-
     } @else {
     <div class="flex flex-col gap-3 w-full">
       @for (pred of predicionResultados; track $index) {
@@ -86,13 +88,13 @@
             />
           </picture>
           <div class="w-2/3">
-            <table class="h-full w-full">
+            <table class="h-full w-full border-2">
               <thead class="bg-gray-50 border-b-2 border-gray-200">
                 <tr>
-                  <th class="p-2 text-sm font-semibold tracking-wide text-left">
+                  <th class="p-2 text-sm font-bold tracking-wide text-left">
                     Clase
                   </th>
-                  <th class="p-2 text-sm font-semibold tracking-wide text-left">
+                  <th class="p-2 text-sm font-bold tracking-wide text-left">
                     Probabilidad
                   </th>
                 </tr>
@@ -100,9 +102,15 @@
               <tbody>
                 @for(valuePred of pred; track $index) {
                 <tr class="bg-white">
-                  <td class="p-2 text-sm">{{ classes_index[$index] }}</td>
+                  <td class="p-2 text-sm font-semibold">
+                    {{ classes_index[$index] }}
+                  </td>
                   <td class="p-2 text-sm">
-                    {{ roundedValue(valuePred * 100) }}%
+                    <mat-progress-bar
+                      mode="determinate"
+                      [value]="roundedValue(valuePred * 100)"
+                    ></mat-progress-bar>
+                    {{ roundedValue(valuePred * 100) }}
                   </td>
                 </tr>
                 }

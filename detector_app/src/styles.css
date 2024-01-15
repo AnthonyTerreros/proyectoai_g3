@@ -12,7 +12,7 @@
 }
 
 .btn-warn {
-    @apply bg-yellow-500 hover:bg-yellow-700;
+    @apply bg-yellow-300 hover:bg-yellow-700;
 }
 
 .btn-danger {
@@ -24,6 +24,6 @@
 }
 
 .btn-brown {
-    @apply bg-yellow-500 hover:bg-yellow-600;
+    @apply bg-yellow-600 hover:bg-yellow-800;
 }
 
