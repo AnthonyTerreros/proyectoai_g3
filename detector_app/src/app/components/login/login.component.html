@@ -2,6 +2,7 @@
   <div class="w-1/2 h-auto flex flex-col gap-5 items-center justify-center">
     <h2 class="text-yellow-600 text-4xl font-bold">Detector App</h2>
     <form
+    autocomplete="on"
       [formGroup]="loginForm"
       (submit)="onSubmit()"
       class="flex w-96 flex-col gap-3 justify-start items-center border-2 rounded p-3 h-full min-h-80"

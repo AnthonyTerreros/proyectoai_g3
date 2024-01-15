@@ -1,8 +1,8 @@
 <div
-  class="mt-6 flex max-w-screen-xl mx-auto justify-start p-5 h-full border gap-5"
+  class="mt-6 flex flex-col max-w-screen-xl mx-auto justify-start p-5 h-full border gap-5 xl:flex-row"
 >
   <section
-    class="w-1/3 flex flex-col gap-5 justify-start border-2 rounded-md p-4"
+    class="w-full xl:w-1/3 flex flex-col gap-5 justify-start border-2 rounded-md p-4 max-h-100"
   >
     <h4 class="font-semibold text-4xl">Subir Images</h4>
     <span class="text-sm">Sube tus imagenes y dale click en procesar.</span>
@@ -16,11 +16,21 @@
       />
     </div>
     <div
-      class="grid grid-cols-3 gap-5 items-start relative h-96 overflow-y-auto"
+      class="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 items-start relative h-96 overflow-y-auto"
     >
-      @for(image of images; track image) {
-      <div class="max-w-sm border-gray-200 rounded-lg shadow">
-        <img [src]="image" alt="Foto 1" class="rounded-t-lg size-40" />
+      @for(image of images; track $index) {
+      <div class="max-w-40 border-gray-200 rounded-lg shadow relative">
+        <img
+          [src]="image"
+          alt="Foto 1"
+          class="rounded-t-lg size-40 object-cover"
+        />
+        <button
+          class="absolute top-0 right-0 py-1 px-2 rounded btn-danger text-white text-sm"
+          (click)="deleteImage($index)"
+        >
+          <mat-icon fontIcon="delete"></mat-icon>
+        </button>
       </div>
       } @empty {
       <p
@@ -38,15 +48,22 @@
       <button class="btn btn-success text-sm" (click)="openDialog()">
         Calificar Resultados
       </button>
+      <button class="btn btn-danger text-sm" (click)="cleanImages()">
+        Limpiar
+      </button>
+      <button class="btn btn-success text-sm" (click)="saveResult()">
+        Guardar Resultados
+      </button>
       <button class="btn btn-primary text-sm" (click)="generatePDF()">
         Exportar Resultados
       </button>
     </div>
   </section>
-  <section class="w-2/3 flex flex-col gap-5 border-2 rounded-md p-4">
+  <section class="w-full xl:w-2/3 flex flex-col gap-5 border-2 rounded-md p-4">
     <h4 class="font-semibold text-4xl">Resultados</h4>
     @if(predicionResultados.length) { @if(isLoading) {
-    <div>Cargando...</div>
+    <mat-spinner></mat-spinner>
+
     } @else {
     <div class="flex flex-col gap-3 w-full">
       @for (pred of predicionResultados; track $index) {
@@ -57,7 +74,9 @@
         <h6 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
           Foto {{ $index + 1 }}
         </h6>
-        <p class="text-xl font-semibold">Nombre {{ $index + 1 }}</p>
+        <p class="text-xl font-semibold">
+          Predicción: {{ getNameClass(pred) }}
+        </p>
         <div class="w-full h-40 flex gap-5">
           <picture class="w-1/3">
             <img
@@ -67,16 +86,24 @@
             />
           </picture>
           <div class="w-2/3">
-            <table class="table-auto">
-              <thead>
+            <table class="h-full w-full">
+              <thead class="bg-gray-50 border-b-2 border-gray-200">
                 <tr>
-                  <th>Probabilidades</th>
+                  <th class="p-2 text-sm font-semibold tracking-wide text-left">
+                    Clase
+                  </th>
+                  <th class="p-2 text-sm font-semibold tracking-wide text-left">
+                    Probabilidad
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 @for(valuePred of pred; track $index) {
-                <tr>
-                  <td>{{ roundedValue(valuePred * 100) }}</td>
+                <tr class="bg-white">
+                  <td class="p-2 text-sm">{{ classes_index[$index] }}</td>
+                  <td class="p-2 text-sm">
+                    {{ roundedValue(valuePred * 100) }}%
+                  </td>
                 </tr>
                 }
               </tbody>

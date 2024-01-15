@@ -18,3 +18,9 @@ export interface DialogData {
   user: User;
   images_url: string[];
 }
+
+export interface Historial {
+  user: User;
+  predictions: any[];
+  images: any[];
+}

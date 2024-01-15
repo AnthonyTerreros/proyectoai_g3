@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { loadGraphModel } from '@tensorflow/tfjs';
 import * as tf from '@tensorflow/tfjs';
+import { classes_index } from '../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +9,11 @@ import * as tf from '@tensorflow/tfjs';
 export class ModeloDlService {
   model!: any;
   obj_classes: any;
+  classes_index: any;
 
   constructor() {
     this.loadModel();
-    // this.obj_classes = this.model.getConfig();
-    // console.log(this.obj_classes);
+    this.classes_index = classes_index;
   }
 
   public predict(image: HTMLImageElement) {
@@ -24,9 +25,7 @@ export class ModeloDlService {
   }
 
   private resizingImage(image: HTMLImageElement) {
-    console.log(image);
     let img = tf.browser.fromPixels(image);
-    console.log(img);
     img = img.resizeBilinear([256, 256]);
     img = img.reshape([1, 256, 256, 3]);
     img = tf.cast(img, 'float32');
@@ -34,12 +33,13 @@ export class ModeloDlService {
   }
 
   private async loadModel() {
-    const modelURL = '../../assets/modecnn_g3/model.json';
+    const modelURL = '../../assets/modelo_web_g3/model.json';
     this.model = await tf.loadLayersModel(modelURL);
   }
 
-  public getClassById(predArr: number[]) {
-    let idx_max = tf.argMax(predArr, 1);
-    return this.obj_classes.get(idx_max);
+  public getClassById(predArr: number[]): string {
+    let res = tf.argMax(predArr, -1).toString().split(' ').slice(-1)[0];
+    let idx_max = parseInt(res);
+    return this.classes_index[idx_max] as string;
   }
 }
