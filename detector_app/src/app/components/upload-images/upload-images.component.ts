@@ -92,26 +92,26 @@ export class UploadImagesComponent {
     const resultadosContainer =
       document.getElementById('resultados') || document.createElement('h1');
     console.log(resultadosContainer);
-    const doc = new jsPDF('p', 'pt', 'a4');
+    const doc = new jsPDF('p', 'mm', 'a4');
     doc.setFont('Arial');
-    doc.setFontSize(12);
+    doc.setFontSize(20);
     doc.text('Detector de Enfermdades de Cacao', 10, 10);
     const options = {
       background: 'white',
-      scale: 3,
+      scale: 2,
     };
 
     html2canvas(resultadosContainer, options)
       .then((canvas) => {
         const img = canvas.toDataURL('image/PNG');
-        let x = 100;
-        let y = 100;
-        let imgProps = (doc as any).getImageProperties(img);
-        console.log(imgProps);
-        const pdfWidth = doc.internal.pageSize.getHeight() - 2 * x;
-        const pdfHeight = (imgProps.height * pdfWidth) / pdfWidth;
-        console.log(pdfHeight, pdfWidth);
-        doc.addImage(img, 'PNG', x, y, pdfWidth, pdfHeight, undefined, 'FAST');
+        // let x = 100;
+        // let y = 100;
+        // let imgProps = (doc as any).getImageProperties(img);
+        // console.log(imgProps);
+        // const pdfWidth = doc.internal.pageSize.getHeight() - 2 * x;
+        // const pdfHeight = (imgProps.height * pdfWidth) / pdfWidth;
+        // console.log(pdfHeight, pdfWidth);
+        doc.addImage(img, 'PNG', 0, 20, 200, 300, undefined, 'FAST');
         return doc;
       })
       .then((docResult) => {
